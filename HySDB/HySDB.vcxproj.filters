@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{94f42191-113a-4e21-9127-ef92aba3f605}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{1e2e4f0b-5c61-485d-a3d2-af64cb15d640}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CUDA">
+      <UniqueIdentifier>{0a0b5a13-68a5-456e-80f9-166ae1bbd102}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="HySDB.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="bucket.cpp" />
+    <ClCompile Include="element.cpp" />
+    <ClCompile Include="index.cpp" />
+    <ClCompile Include="site.cpp" />
+    <ClCompile Include="site_arranger.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="HySDB.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="kernel.h">
+      <Filter>CUDA</Filter>
+    </ClInclude>
+    <ClInclude Include="SubNetSP.cuh">
+      <Filter>CUDA</Filter>
+    </ClInclude>
+    <ClInclude Include="bucket.h" />
+    <ClInclude Include="element.h" />
+    <ClInclude Include="index.h" />
+    <ClInclude Include="site.h" />
+    <ClInclude Include="site_arranger.h" />
+    <ClInclude Include="update_info.h" />
+    <ClInclude Include="checkDeviceInfo.cuh">
+      <Filter>CUDA</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CudaCompile Include="kernel.cu">
+      <Filter>CUDA</Filter>
+    </CudaCompile>
+    <CudaCompile Include="SubNetSP.cu">
+      <Filter>CUDA</Filter>
+    </CudaCompile>
+    <CudaCompile Include="checkDeviceInfo.cu">
+      <Filter>CUDA</Filter>
+    </CudaCompile>
+  </ItemGroup>
+</Project>
