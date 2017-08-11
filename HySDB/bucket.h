@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include <array>
-#include "gtest/gtest_prod.h"
+#include "gtest_prod.h"
 #include "site.h"
 #include <memory>
 

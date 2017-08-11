@@ -1,4 +1,4 @@
-#include "SubNetSP.cuh"
+#include "subnet_shortest_path.cuh"
 
 __global__ void test(A a) {
 

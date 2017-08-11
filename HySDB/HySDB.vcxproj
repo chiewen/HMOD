@@ -95,7 +95,7 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>HYS_EXPORTS;WIN32;WIN64;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>D:\work\lib\googletest-master\googletest\include;%GTEST_DIR%/include;%GTEST_DIR%;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -108,6 +108,8 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
     <CudaCompile>
       <TargetMachinePlatform>64</TargetMachinePlatform>
+      <CodeGeneration>compute_20,sm_20</CodeGeneration>
+      <Include>%(Include)</Include>
     </CudaCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -138,7 +140,7 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>HYS_EXPORTS;WIN32;WIN64;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>D:\work\lib\googletest-master\googletest\include;%GTEST_DIR%/include;%GTEST_DIR%;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -153,32 +155,35 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
     <CudaCompile>
       <TargetMachinePlatform>64</TargetMachinePlatform>
+      <CodeGeneration>compute_20,sm_20</CodeGeneration>
+      <Include>%(Include)</Include>
     </CudaCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CudaCompile Include="checkDeviceInfo.cu" />
+    <CudaCompile Include="check_device_info.cu" />
     <CudaCompile Include="kernel.cu" />
-    <CudaCompile Include="SubNetSP.cu" />
+    <CudaCompile Include="subnet_shortest_path.cu" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bucket.h" />
-    <ClInclude Include="checkDeviceInfo.cuh" />
+    <ClInclude Include="check_device_info.cuh" />
     <ClInclude Include="element.h" />
-    <ClInclude Include="index.h" />
+    <ClInclude Include="gtest_prod.h" />
+    <ClInclude Include="index_.h" />
     <ClInclude Include="kernel.h" />
-    <ClInclude Include="HySDB.h" />
+    <ClInclude Include="hybrid_spatial_db.h" />
     <ClInclude Include="site.h" />
     <ClInclude Include="site_arranger.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="SubNetSP.cuh" />
+    <ClInclude Include="subnet_shortest_path.cuh" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="update_info.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bucket.cpp" />
     <ClCompile Include="element.cpp" />
-    <ClCompile Include="HySDB.cpp" />
-    <ClCompile Include="index.cpp" />
+    <ClCompile Include="hybrid_spatial_db.cpp" />
+    <ClCompile Include="index_.cpp" />
     <ClCompile Include="site.cpp" />
     <ClCompile Include="site_arranger.cpp" />
     <ClCompile Include="stdafx.cpp">

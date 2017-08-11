@@ -12,22 +12,19 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="HySDB.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="bucket.cpp" />
     <ClCompile Include="element.cpp" />
-    <ClCompile Include="index.cpp" />
     <ClCompile Include="site.cpp" />
     <ClCompile Include="site_arranger.cpp" />
+    <ClCompile Include="hybrid_spatial_db.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="index_.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="HySDB.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -37,27 +34,31 @@
     <ClInclude Include="kernel.h">
       <Filter>CUDA</Filter>
     </ClInclude>
-    <ClInclude Include="SubNetSP.cuh">
-      <Filter>CUDA</Filter>
-    </ClInclude>
     <ClInclude Include="bucket.h" />
     <ClInclude Include="element.h" />
-    <ClInclude Include="index.h" />
     <ClInclude Include="site.h" />
     <ClInclude Include="site_arranger.h" />
     <ClInclude Include="update_info.h" />
-    <ClInclude Include="checkDeviceInfo.cuh">
+    <ClInclude Include="subnet_shortest_path.cuh">
       <Filter>CUDA</Filter>
     </ClInclude>
+    <ClInclude Include="check_device_info.cuh">
+      <Filter>CUDA</Filter>
+    </ClInclude>
+    <ClInclude Include="hybrid_spatial_db.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="index_.h" />
+    <ClInclude Include="gtest_prod.h" />
   </ItemGroup>
   <ItemGroup>
     <CudaCompile Include="kernel.cu">
       <Filter>CUDA</Filter>
     </CudaCompile>
-    <CudaCompile Include="SubNetSP.cu">
+    <CudaCompile Include="subnet_shortest_path.cu">
       <Filter>CUDA</Filter>
     </CudaCompile>
-    <CudaCompile Include="checkDeviceInfo.cu">
+    <CudaCompile Include="check_device_info.cu">
       <Filter>CUDA</Filter>
     </CudaCompile>
   </ItemGroup>
