@@ -173,12 +173,6 @@
     <ClCompile Include="test_main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataGenerator\DataGenerator.vcxproj">
-      <Project>{e1b6d074-2efa-496a-ab95-286e0ea2f773}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\HMOD\HMOD.vcxproj">
-      <Project>{9fa78f7c-76e4-4f4e-8745-591e47171184}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\HySDB\HySDB.vcxproj">
       <Project>{91539487-f481-4f8e-8cf5-1c8663bb3cd8}</Project>
     </ProjectReference>

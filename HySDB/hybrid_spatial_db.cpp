@@ -3,22 +3,26 @@
 #include "kernel.h"
 
 #include "subnet_shortest_path.cuh"
-#include "check_device_info.cuh"
+//#include "check_device_info.cuh"
 #include "index_.h"
 
-int HySDB::HySDB::initial() {
-	return add();
-}
+#include <thrust/scan.h>
+#include <thrust/execution_policy.h>
+#include "z_order.h"
 
-int HySDB::HySDB::test() {
+int HySDB::HySDB::initial() {
 	Index::Initialize();
 	return 0;
 }
 
-int HySDB::HySDB::device_info() {
-	check_device_info();
+int HySDB::HySDB::test() {
+	cuda_add();
+
+	int data[6] = {1, 0, 2, 2, 1, 3};
+	thrust::inclusive_scan(thrust::host, data, data + 6, data); // in-place scan
+
+	std::copy(data, data + 6, std::ostream_iterator<int>(std::cout, " "));
+
 	return 0;
 }
 
-int main() {
-}
