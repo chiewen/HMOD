@@ -16,5 +16,5 @@ public:
 
 	static std::pair<int, int> GetXYFromCellId(int cell_id);
 	
-	static std::set<int> NeighborsOf(int cell_id);
+	static std::vector<int> NeighborsOf(int cell_id);
 };

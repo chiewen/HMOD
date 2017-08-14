@@ -30,7 +30,7 @@ TEST(Index, ZOrder) {
 	EXPECT_EQ(xy.second, 6);
 
 	auto neighbors = ZOrder::NeighborsOf(50);
-	set<int> should_be{ 37, 45, 49, 57, 48, 56, 39, 51 };
+	vector<int> should_be{ 37, 45, 49, 57, 48, 56, 39, 51 };
 	EXPECT_EQ(neighbors, should_be);
 
 	neighbors = ZOrder::NeighborsOf(18);
@@ -62,6 +62,5 @@ TEST(Index, Initialization) {
 				}
 		}
 	}
-	ZOrder::GenerateZOrder();
 	HySDB::HySDB::test();
 }

@@ -18,7 +18,7 @@ std::pair<int, int> ZOrder::GetXYFromCellId(int cell_id) {
 	int x_ = cell_id & 0x5555;
 	int y_ = cell_id & 0xaaaa;
 
-	int x = 
+	int x =
 		((x_ & 0x4000) >> 7) +
 		((x_ & 0x1000) >> 6) +
 		((x_ & 0x0400) >> 5) +
@@ -40,18 +40,22 @@ std::pair<int, int> ZOrder::GetXYFromCellId(int cell_id) {
 	return std::make_pair(x, y);
 }
 
-std::set<int> ZOrder::NeighborsOf(int cell_id) {
+std::vector<int> ZOrder::NeighborsOf(int cell_id) {
 	int x = cell_id & 0x5555;
 	int y = cell_id & 0xaaaa;
-	
+
 	int x_r = (x + 0xaaab) & 0x5555;
 	int x_l = (x - 1) & 0x5555;
-	
+
 	int y_r = (y + 0x5556) & 0xaaaa;
 	int y_l = (y - 1) & 0xaaaa;
 
-	return {x_l | y_l, x_l | y_r, 
-		x_r | y_l, x_r | y_r, 
-		x | y_l, x | y_r, 
-		y | x_l, y | x_r};
+	std::vector<int> result{x_l | y_l, x_l | y_r, x_r | y_l, x_r | y_r,
+		x | y_l, x | y_r, y | x_l, y | x_r};
+
+	result.erase(std::remove_if(result.begin(), result.end(), [](int r) {
+	                            return r < 0 || r > 65535;
+                            }), result.end());
+
+	return result;
 }
