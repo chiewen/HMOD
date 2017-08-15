@@ -53,9 +53,5 @@ std::vector<int> ZOrder::NeighborsOf(int cell_id) {
 	std::vector<int> result{x_l | y_l, x_l | y_r, x_r | y_l, x_r | y_r,
 		x | y_l, x | y_r, y | x_l, y | x_r};
 
-	result.erase(std::remove_if(result.begin(), result.end(), [](int r) {
-	                            return r < 0 || r > 65535;
-                            }), result.end());
-
 	return result;
 }

@@ -14,6 +14,8 @@ int Index::EdgeNumInVertex() { return kMaxEdgesPerVertex - rand() % (kMaxEdgesPe
 
 int Index::EdgeLength() { return rand() % 200 + 30; }
 
+int Index::EdgeNumToNeighbors() { return (rand() % kMaxEdgesPerVertex / 5); }
+
 void Index::Initialize() {
 	//clear all data in Index
 	memset(&grid_, 0, sizeof(grid_));
@@ -34,29 +36,53 @@ void Index::Initialize() {
 	int edge_id = 1;
 	for (int i = 0; i < kCellNum; ++i) {
 		for (int j = 0; j < grid_[i].vertex_num; ++j) {
+
 			int edge_num_in_vertex = EdgeNumInVertex();
+
 			grid_[i].edge_num += edge_num_in_vertex;
 			grid_[i].vertex_[j].edge_number_ = edge_num_in_vertex;
+
 			for (int k = 0; k < edge_num_in_vertex; ++k) {
 				auto& edge = grid_[i].vertex_[j].edges_[k];
 				edge.id_ = edge_id++;
 				edge.length_ = EdgeLength();
+				edge.to_cell_ = i;
 				int id_candidate = grid_[i].vertex_[rand() % grid_[i].vertex_num].id_;
 				if (id_candidate == grid_[i].vertex_[j].id_) {
 					//requires more than one vertex in a cell
 					id_candidate = grid_[i].vertex_[(j + 1) % grid_[i].vertex_num].id_;
 				}
 				edge.to_vertex_ = id_candidate;
-				edge.to_cell_ = i;
 			}
 		}
 	}
 
-
+	//generate edges to neighbor cells
 	for (int i = 0; i < kCellNum; ++i) {
-		auto neighbors = ZOrder::NeighborsOf(i);
+		auto neighbors = Neighbors(i);
 		for (int j = 0; j < grid_[i].vertex_num; ++j) {
-//			neighbors.
+			auto& vertex = grid_[i].vertex_[j];
+
+			int edge_to_neighbors = std::min(EdgeNumToNeighbors(), (kMaxEdgesPerVertex - vertex.edge_number_));
+
+			for (int k = vertex.edge_number_; k < vertex.edge_number_ + edge_to_neighbors; ++k) {
+				vertex.edges_[k].id_ = edge_id++;
+				vertex.edges_[k].length_ = EdgeLength();
+				int to_cell = rand() % neighbors.size();
+				vertex.edges_[k].to_cell_ = neighbors[to_cell];
+				vertex.edges_[k].to_vertex_ = grid_[neighbors[to_cell]].vertex_[rand() % grid_[neighbors[to_cell]].vertex_num].id_;
+			}
+			vertex.edge_number_ += edge_to_neighbors;
 		}
 	}
+}
+
+std::vector<int> Index::Neighbors(int cell_id) {
+	auto result = ZOrder::NeighborsOf(cell_id);
+	result.erase(std::remove_if(result.begin(), result.end(), [](int r) {
+	                            return r < 0 || r >= kCellNum;
+                            }), result.end());
+
+	return result;
+
 }

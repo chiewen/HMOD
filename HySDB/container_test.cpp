@@ -1,7 +1,6 @@
 ﻿#include "stdafx.h"
 
 #include <gtest/gtest.h>
-#include "hybrid_spatial_db.h"
 #include "index_.h"
 #include "z_order.h"
 
@@ -30,7 +29,7 @@ TEST(Index, ZOrder) {
 	EXPECT_EQ(xy.second, 6);
 
 	auto neighbors = ZOrder::NeighborsOf(50);
-	vector<int> should_be{ 37, 45, 49, 57, 48, 56, 39, 51 };
+	vector<int> should_be{37, 45, 49, 57, 48, 56, 39, 51};
 	EXPECT_EQ(neighbors, should_be);
 
 	neighbors = ZOrder::NeighborsOf(18);
@@ -44,7 +43,8 @@ TEST(Index, Initialization) {
 	//vertex number
 	int vertex_sum = 0;
 	for (auto& cell : Index::grid_) {
-		int count = count_if(begin(cell.vertex_), end(cell.vertex_), [=](const Index::Vertex& v) {
+		int count = count_if(begin(cell.vertex_), end(cell.vertex_),
+		                     [=](const Index::Vertex& v) {
 		                     return v.id_ != 0;
 	                     });
 		EXPECT_EQ(cell.vertex_num, count);
@@ -62,5 +62,14 @@ TEST(Index, Initialization) {
 				}
 		}
 	}
-	HySDB::HySDB::test();
+
+	//edges number 
+	for (auto& cell : Index::grid_) {
+		for (auto& vertex : cell.vertex_) {
+			EXPECT_EQ(vertex.edge_number_, std::count_if(std::begin(vertex.edges_), std::end(vertex.edges_), [=](Index::Vertex::Edge& edge)
+			{
+				return edge.id_ != 0;
+			}));
+		}
+	}
 }

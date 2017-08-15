@@ -8,6 +8,7 @@ class Index {
 	static int VertexNumInCell();
 	static int EdgeNumInVertex();
 	static int EdgeLength();
+	static int EdgeNumToNeighbors();
 
 public:
 	static const int kCellNum = 1 << 4;
@@ -34,7 +35,11 @@ public:
 		Vertex vertex_[kMaxVerticesPerCell];
 	};
 
+public:
+	static std::vector<int> Neighbors(int cell_id);
+
 	static Cell grid_[kCellNum];
 
 	static void Initialize();
+
 };

@@ -187,6 +187,7 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     <ClInclude Include="index_.h" />
     <ClInclude Include="kernel.h" />
     <ClInclude Include="hybrid_spatial_db.h" />
+    <ClInclude Include="objects.h" />
     <ClInclude Include="site.h" />
     <ClInclude Include="site_arranger.h" />
     <ClInclude Include="stdafx.h" />
@@ -201,6 +202,7 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     <ClCompile Include="element.cpp" />
     <ClCompile Include="hybrid_spatial_db.cpp" />
     <ClCompile Include="index_.cpp" />
+    <ClCompile Include="objects.cpp" />
     <ClCompile Include="site.cpp" />
     <ClCompile Include="site_arranger.cpp" />
     <ClCompile Include="stdafx.cpp">

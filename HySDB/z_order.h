@@ -3,6 +3,8 @@
 
 class ZOrder {
 	FRIEND_TEST(Index, ZOrder);
+	friend class Index;
+
 	static const int kLength = 256;
 	static const int z_order_x[];
 	static const int z_order_y[];
@@ -16,5 +18,6 @@ public:
 
 	static std::pair<int, int> GetXYFromCellId(int cell_id);
 	
+private:
 	static std::vector<int> NeighborsOf(int cell_id);
 };
