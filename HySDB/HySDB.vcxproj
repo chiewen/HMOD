@@ -175,19 +175,20 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <CudaCompile Include="check_device_info.cu" />
-    <CudaCompile Include="kernel.cu" />
+    <CudaCompile Include="CudaGuard.cu" />
+    <CudaCompile Include="object.cu" />
     <CudaCompile Include="subnet_shortest_path.cu" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bucket.h" />
     <ClInclude Include="check_device_info.cuh" />
     <ClInclude Include="common.h" />
+    <ClInclude Include="CudaGuard.cuh" />
     <ClInclude Include="element.h" />
     <ClInclude Include="gtest_prod.h" />
     <ClInclude Include="index_.h" />
-    <ClInclude Include="kernel.h" />
+    <ClInclude Include="object.cuh" />
     <ClInclude Include="hybrid_spatial_db.h" />
-    <ClInclude Include="objects.h" />
     <ClInclude Include="site.h" />
     <ClInclude Include="site_arranger.h" />
     <ClInclude Include="stdafx.h" />
@@ -202,7 +203,6 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     <ClCompile Include="element.cpp" />
     <ClCompile Include="hybrid_spatial_db.cpp" />
     <ClCompile Include="index_.cpp" />
-    <ClCompile Include="objects.cpp" />
     <ClCompile Include="site.cpp" />
     <ClCompile Include="site_arranger.cpp" />
     <ClCompile Include="stdafx.cpp">

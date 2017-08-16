@@ -1,9 +1,23 @@
 #include "stdafx.h"
 #include <gtest/gtest.h>
+#include "object.cuh"
+#include "index_.h"
+#include "CudaGuard.cuh"
+
+void google_test(int argc, char** argv) {
+	testing::InitGoogleTest(&argc, argv);
+	RUN_ALL_TESTS();
+}
+
+void normal_run() {
+	CudaGuard guard;
+	Objects::Initialize();
+}
 
 int main(int argc, char* argv[])
 {
-	testing::InitGoogleTest(&argc, argv);
-	return RUN_ALL_TESTS();
+	google_test(argc, argv);
+//	normal_run();
+	return 0;
 }
 

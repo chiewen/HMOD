@@ -3,7 +3,8 @@
 #include <gtest/gtest.h>
 #include "index_.h"
 #include "z_order.h"
-#include "objects.h"
+#include "object.cuh"
+#include "CudaGuard.cuh"
 
 using namespace std;
 
@@ -90,8 +91,8 @@ public:
 };
 
 TEST_F(ObjectsTest, Initialize) {
+	CudaGuard guard;
 	Objects::Initialize();
-
 	//edge id should be correct
 	test_edge();
 

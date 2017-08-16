@@ -84,5 +84,4 @@ std::vector<int> Index::Neighbors(int cell_id) {
                             }), result.end());
 
 	return result;
-
 }
