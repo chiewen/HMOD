@@ -50,7 +50,7 @@ Object Objects::objects_[Objects::kTotalObjectNum];
 //	}
 //}
 
-__global__ void devStep(curandState* s, Object* objects_, Index::Cell* grid_) {
+__global__ void devStep(curandState* s, Object* objects_, const Index::Cell* __restrict__ grid_) {
 	int idx = threadIdx.x + blockDim.x * blockIdx.x;
 		auto& o = objects_[idx];
 		o.position_ += o.speed_;
@@ -60,7 +60,7 @@ __global__ void devStep(curandState* s, Object* objects_, Index::Cell* grid_) {
 		while (o.position_ >= edge_length) {
 			o.position_ -= edge_length;
 			o.cell_id = edge.to_cell_;
-			o.vertex_pos_ = edge.to_vertex_pos_;
+			o.vertex_pos_ = edge.to_vertex_pos_; 
 			int new_edge_pos = curand_uniform(s + idx) * grid_[o.cell_id].vertex_[o.vertex_pos_].edge_num_;
 			auto& new_edge = grid_[o.cell_id].vertex_[o.vertex_pos_].edges_[new_edge_pos];
 			o.edge_pos_ = new_edge_pos;
@@ -77,7 +77,7 @@ void Objects::Step() {
 }
 
 
-__global__ void devInitialize(curandState* s, Object* objects, Index::Cell* grid_) {
+__global__ void devInitialize(curandState* s, Object* objects, const Index::Cell* __restrict__ grid_) {
 	int idx = threadIdx.x + blockDim.x * blockIdx.x;
 	curand_init(1234, idx, 0, &s[idx]);
 
