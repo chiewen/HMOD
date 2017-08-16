@@ -40,19 +40,19 @@ void Index::Initialize() {
 			int edge_num_in_vertex = EdgeNumInVertex();
 
 			grid_[i].edge_num += edge_num_in_vertex;
-			grid_[i].vertex_[j].edge_number_ = edge_num_in_vertex;
+			grid_[i].vertex_[j].edge_num_ = edge_num_in_vertex;
 
 			for (int k = 0; k < edge_num_in_vertex; ++k) {
 				auto& edge = grid_[i].vertex_[j].edges_[k];
 				edge.id_ = edge_id++;
 				edge.length_ = EdgeLength();
 				edge.to_cell_ = i;
-				int id_candidate = grid_[i].vertex_[rand() % grid_[i].vertex_num].id_;
-				if (id_candidate == grid_[i].vertex_[j].id_) {
+				int pos = rand() % grid_[i].vertex_num;
+				if (pos == j) {
 					//requires more than one vertex in a cell
-					id_candidate = grid_[i].vertex_[(j + 1) % grid_[i].vertex_num].id_;
+					pos = (j + 1) % grid_[i].vertex_num;
 				}
-				edge.to_vertex_ = id_candidate;
+				edge.to_vertex_pos_ = pos;
 			}
 		}
 	}
@@ -63,16 +63,16 @@ void Index::Initialize() {
 		for (int j = 0; j < grid_[i].vertex_num; ++j) {
 			auto& vertex = grid_[i].vertex_[j];
 
-			int edge_to_neighbors = std::min(EdgeNumToNeighbors(), (kMaxEdgesPerVertex - vertex.edge_number_));
+			int edge_to_neighbors = std::min(EdgeNumToNeighbors(), (kMaxEdgesPerVertex - vertex.edge_num_));
 
-			for (int k = vertex.edge_number_; k < vertex.edge_number_ + edge_to_neighbors; ++k) {
+			for (int k = vertex.edge_num_; k < vertex.edge_num_ + edge_to_neighbors; ++k) {
 				vertex.edges_[k].id_ = edge_id++;
 				vertex.edges_[k].length_ = EdgeLength();
 				int to_cell = rand() % neighbors.size();
 				vertex.edges_[k].to_cell_ = neighbors[to_cell];
-				vertex.edges_[k].to_vertex_ = grid_[neighbors[to_cell]].vertex_[rand() % grid_[neighbors[to_cell]].vertex_num].id_;
+				vertex.edges_[k].to_vertex_pos_ = rand() % grid_[neighbors[to_cell]].vertex_num;
 			}
-			vertex.edge_number_ += edge_to_neighbors;
+			vertex.edge_num_ += edge_to_neighbors;
 		}
 	}
 }

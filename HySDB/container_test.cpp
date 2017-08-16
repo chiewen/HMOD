@@ -3,6 +3,7 @@
 #include <gtest/gtest.h>
 #include "index_.h"
 #include "z_order.h"
+#include "objects.h"
 
 using namespace std;
 
@@ -53,12 +54,14 @@ TEST(Index, Initialization) {
 	EXPECT_EQ(vertex_sum, Index::vertex_num);
 
 	//edges not pointing to their containing vertices
-	for (auto& cell : Index::grid_) {
-		for (auto& vertex : cell.vertex_) {
+	for (int j = 0; j < Index::kCellNum; ++j) {
+		auto& cell = Index::grid_[j];
+		for (int i = 0; i < cell.vertex_num; ++i) {
+			auto& vertex = cell.vertex_[i];
 			if (vertex.id_ != 0)
 				for (auto& edge : vertex.edges_) {
 					if (edge.id_ != 0)
-					EXPECT_TRUE(edge.to_vertex_ != vertex.id_);
+					EXPECT_TRUE(edge.to_vertex_pos_ != i || edge.to_cell_ != j);
 				}
 		}
 	}
@@ -66,10 +69,37 @@ TEST(Index, Initialization) {
 	//edges number 
 	for (auto& cell : Index::grid_) {
 		for (auto& vertex : cell.vertex_) {
-			EXPECT_EQ(vertex.edge_number_, std::count_if(std::begin(vertex.edges_), std::end(vertex.edges_), [=](Index::Vertex::Edge& edge)
+			EXPECT_EQ(vertex.edge_num_, std::count_if(std::begin(vertex.edges_), std::end(vertex.edges_), [=](Index::Vertex::Edge& edge)
 			{
 				return edge.id_ != 0;
 			}));
 		}
 	}
+}
+
+class ObjectsTest: public ::testing::Test {
+public:
+	void test_edge() const {
+		for (int i = 0; i < Objects::kTotalObjectNum; ++i) {
+			auto& o = Objects::objects_[i];
+			auto& e = Index::grid_[o.cell_id].vertex_[o.vertex_pos_].edges_[o.edge_pos_];
+			ASSERT_EQ(Objects::objects_[i].edge_id_, e.id_);
+			ASSERT_GE(e.length_, o.position_);
+		}
+	}
+};
+
+TEST_F(ObjectsTest, Initialize) {
+	Objects::Initialize();
+
+	//edge id should be correct
+	test_edge();
+
+	Objects::Step();
+	test_edge();
+
+	for (int i = 0; i < 1000; ++i) {
+		Objects::Step();
+	}
+	test_edge();
 }

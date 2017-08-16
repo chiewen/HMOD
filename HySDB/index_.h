@@ -19,12 +19,12 @@ public:
 
 	struct Vertex {
 		int id_;
-		int edge_number_;
+		int edge_num_;
 
 		struct Edge {
 			int id_;
 			int length_;
-			int to_vertex_;
+			int to_vertex_pos_;
 			int to_cell_;
 		} edges_[kMaxEdgesPerVertex];
 	};
