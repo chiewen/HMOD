@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 #include "object.cuh"
 #include "index_.h"
-#include "CudaGuard.cuh"
+#include "cuda_guard.cuh"
 
 void google_test(int argc, char** argv) {
 	testing::InitGoogleTest(&argc, argv);

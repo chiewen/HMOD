@@ -14,7 +14,7 @@ int Index::EdgeNumInVertex() { return kMaxEdgesPerVertex - rand() % (kMaxEdgesPe
 
 int Index::EdgeLength() { return rand() % 200 + 30; }
 
-int Index::EdgeNumToNeighbors() { return (rand() % kMaxEdgesPerVertex / 5); }
+int Index::EdgeNumToNeighbors() { return (rand() % kMaxEdgesPerVertex / 3); }
 
 void Index::Initialize() {
 	//clear all data in Index
@@ -73,6 +73,7 @@ void Index::Initialize() {
 				vertex.edges_[k].to_vertex_pos_ = rand() % grid_[neighbors[to_cell]].vertex_num;
 			}
 			vertex.edge_num_ += edge_to_neighbors;
+			grid_[i].edge_num += edge_to_neighbors;
 		}
 	}
 }

@@ -175,7 +175,7 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <CudaCompile Include="check_device_info.cu" />
-    <CudaCompile Include="CudaGuard.cu" />
+    <CudaCompile Include="cuda_guard.cu" />
     <CudaCompile Include="object.cu" />
     <CudaCompile Include="subnet_shortest_path.cu" />
   </ItemGroup>
@@ -183,7 +183,7 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     <ClInclude Include="bucket.h" />
     <ClInclude Include="check_device_info.cuh" />
     <ClInclude Include="common.h" />
-    <ClInclude Include="CudaGuard.cuh" />
+    <ClInclude Include="cuda_guard.cuh" />
     <ClInclude Include="element.h" />
     <ClInclude Include="gtest_prod.h" />
     <ClInclude Include="index_.h" />
@@ -198,6 +198,7 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     <ClInclude Include="z_order.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="algorithm_test.cpp" />
     <ClCompile Include="bucket.cpp" />
     <ClCompile Include="container_test.cpp" />
     <ClCompile Include="element.cpp" />

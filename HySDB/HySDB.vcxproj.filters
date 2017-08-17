@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="CUDA">
-      <UniqueIdentifier>{0a0b5a13-68a5-456e-80f9-166ae1bbd102}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Test">
       <UniqueIdentifier>{fd4c6b06-39ef-4f16-b370-6b6bb5cc6e04}</UniqueIdentifier>
     </Filter>
@@ -15,6 +12,9 @@
     </Filter>
     <Filter Include="Util">
       <UniqueIdentifier>{1e2e4f0b-5c61-485d-a3d2-af64cb15d640}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithm">
+      <UniqueIdentifier>{0a0b5a13-68a5-456e-80f9-166ae1bbd102}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -42,16 +42,19 @@
       <Filter>Container</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="algorithm_test.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="subnet_shortest_path.cuh">
-      <Filter>CUDA</Filter>
+      <Filter>Algorithm</Filter>
     </ClInclude>
     <ClInclude Include="check_device_info.cuh">
-      <Filter>CUDA</Filter>
+      <Filter>Algorithm</Filter>
     </ClInclude>
     <ClInclude Include="common.h">
-      <Filter>CUDA</Filter>
+      <Filter>Algorithm</Filter>
     </ClInclude>
     <ClInclude Include="bucket.h">
       <Filter>Other</Filter>
@@ -80,21 +83,21 @@
     <ClInclude Include="hybrid_spatial_db.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="CudaGuard.cuh" />
     <ClInclude Include="object.cuh">
       <Filter>Container</Filter>
     </ClInclude>
+    <ClInclude Include="cuda_guard.cuh" />
   </ItemGroup>
   <ItemGroup>
     <CudaCompile Include="subnet_shortest_path.cu">
-      <Filter>CUDA</Filter>
+      <Filter>Algorithm</Filter>
     </CudaCompile>
     <CudaCompile Include="check_device_info.cu">
-      <Filter>CUDA</Filter>
+      <Filter>Algorithm</Filter>
     </CudaCompile>
-    <CudaCompile Include="CudaGuard.cu" />
     <CudaCompile Include="object.cu">
       <Filter>Container</Filter>
     </CudaCompile>
+    <CudaCompile Include="cuda_guard.cu" />
   </ItemGroup>
 </Project>

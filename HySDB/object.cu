@@ -8,7 +8,7 @@
 #include <curand_kernel.h>
 #include <math.h>
 #include "index_.h"
-#include "CudaGuard.cuh"
+#include "cuda_guard.cuh"
 
 Object Objects::objects_[Objects::kTotalObjectNum];
 
@@ -52,20 +52,20 @@ Object Objects::objects_[Objects::kTotalObjectNum];
 
 __global__ void devStep(curandState* s, Object* objects_, const Index::Cell* __restrict__ grid_) {
 	int idx = threadIdx.x + blockDim.x * blockIdx.x;
-		auto& o = objects_[idx];
-		o.position_ += o.speed_;
+	auto& o = objects_[idx];
+	o.position_ += o.speed_;
 
-		auto& edge = grid_[o.cell_id].vertex_[o.vertex_pos_].edges_[o.edge_pos_];
-		auto edge_length = edge.length_;
-		while (o.position_ >= edge_length) {
-			o.position_ -= edge_length;
-			o.cell_id = edge.to_cell_;
-			o.vertex_pos_ = edge.to_vertex_pos_; 
-			int new_edge_pos = curand_uniform(s + idx) * grid_[o.cell_id].vertex_[o.vertex_pos_].edge_num_;
-			auto& new_edge = grid_[o.cell_id].vertex_[o.vertex_pos_].edges_[new_edge_pos];
-			o.edge_pos_ = new_edge_pos;
-			o.edge_id_ = new_edge.id_;
-		}
+	auto& edge = grid_[o.cell_id].vertex_[o.vertex_pos_].edges_[o.edge_pos_];
+	auto edge_length = edge.length_;
+	while (o.position_ >= edge_length) {
+		o.position_ -= edge_length;
+		o.cell_id = edge.to_cell_;
+		o.vertex_pos_ = edge.to_vertex_pos_;
+		int new_edge_pos = curand_uniform(s + idx) * grid_[o.cell_id].vertex_[o.vertex_pos_].edge_num_;
+		auto& new_edge = grid_[o.cell_id].vertex_[o.vertex_pos_].edges_[new_edge_pos];
+		o.edge_pos_ = new_edge_pos;
+		o.edge_id_ = new_edge.id_;
+	}
 }
 
 void Objects::Step() {
@@ -96,6 +96,8 @@ __global__ void devInitialize(curandState* s, Object* objects, const Index::Cell
 }
 
 void Objects::Initialize() {
+	memset(Objects::objects_, 0, sizeof(Object) * kTotalObjectNum);
+
 	int size = Objects::kTotalObjectNum;
 
 	devInitialize<<<16, size / 16>>>(CudaGuard::pd_curand_state_, CudaGuard::pd_objects_, CudaGuard::pd_grid_);

@@ -15,5 +15,6 @@
 #include "gtest_prod.h"
 
 #include <algorithm>
+#include <numeric>
 #include <vector>
 

@@ -1,18 +1,31 @@
 #pragma once
 
 #include "stdafx.h"
+#include "cuda.h"
 #include "cuda_runtime.h"
+#include "cuda_runtime_api.h"
 #include "device_launch_parameters.h"
 
-class A {
-	int data;
+class SubnetBF {
 public:
-	A() { data = 0; }
-	__host__ __device__ void increment() { data++; }
-	__host__ __device__ void print_data() const { printf("data = %d\n", data); }
+	static const int kMaxThreadsPerBlock = 64;
+
+	struct SBfResult {
+		int id_;
+		int distance_;
+		int previous_vertex_id;
+	};
+
+	SubnetBF() {}
+
+	static void BfOnCpu(int* cells, int cell_num, int start_cell,
+	                    int start_vertex, int start_edge, int distance,
+	                    SBfResult* result_num, int edge_num);
+
+	static void BfOnGpu(int* cells, int cell_num, int start_cell,
+	                    int start_vertex, int start_edge, int distance,
+	                    SBfResult* result_num, int edge_num);
+
 };
 
 
-__global__ void test(A a);
-
-int tt();

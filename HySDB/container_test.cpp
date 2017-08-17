@@ -4,7 +4,7 @@
 #include "index_.h"
 #include "z_order.h"
 #include "object.cuh"
-#include "CudaGuard.cuh"
+#include "cuda_guard.cuh"
 
 using namespace std;
 
@@ -46,7 +46,7 @@ TEST(Index, Initialization) {
 	int vertex_sum = 0;
 	for (auto& cell : Index::grid_) {
 		int count = count_if(begin(cell.vertex_), end(cell.vertex_),
-		                     [=](const Index::Vertex& v) {
+		                     [=](const Index::Cell::Vertex& v) {
 		                     return v.id_ != 0;
 	                     });
 		EXPECT_EQ(cell.vertex_num, count);
@@ -69,11 +69,15 @@ TEST(Index, Initialization) {
 
 	//edges number 
 	for (auto& cell : Index::grid_) {
+		int edge_num_c = std::accumulate(std::begin(cell.vertex_), std::end(cell.vertex_), 0, [](int sum, Index::Cell::Vertex& vertex) {
+		                                 return sum + vertex.edge_num_;
+	                                 });
+		EXPECT_EQ(edge_num_c, cell.edge_num);
 		for (auto& vertex : cell.vertex_) {
-			EXPECT_EQ(vertex.edge_num_, std::count_if(std::begin(vertex.edges_), std::end(vertex.edges_), [=](Index::Vertex::Edge& edge)
-			{
-				return edge.id_ != 0;
-			}));
+			int edge_num_v = std::count_if(std::begin(vertex.edges_), std::end(vertex.edges_), [=](Index::Cell::Vertex::Edge& edge) {
+			                               return edge.id_ != 0;
+		                               });
+			EXPECT_EQ(vertex.edge_num_, edge_num_v);
 		}
 	}
 }
@@ -93,14 +97,12 @@ public:
 TEST_F(ObjectsTest, Initialize) {
 	CudaGuard guard;
 	Objects::Initialize();
+
 	//edge id should be correct
 	test_edge();
 
-	Objects::Step();
-	test_edge();
-
-	for (int i = 0; i < 1000; ++i) {
+	for (int i = 0; i < 10; ++i) {
 		Objects::Step();
+		test_edge();
 	}
-	test_edge();
 }

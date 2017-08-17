@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "CudaGuard.cuh"
+#include "cuda_guard.cuh"
 #include <cuda_runtime_api.h>
 #include "device_launch_parameters.h"
 #include "index_.h"

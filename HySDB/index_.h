@@ -17,29 +17,25 @@ public:
 
 	static int vertex_num;
 
-	struct Vertex {
-		int id_;
-		int edge_num_;
-
-		struct Edge {
-			int id_;
-			int length_;
-			int to_vertex_pos_;
-			int to_cell_;
-		} edges_[kMaxEdgesPerVertex];
-	};
-
 	struct Cell {
 		int vertex_num;
 		int edge_num;
-		Vertex vertex_[kMaxVerticesPerCell];
-	};
 
-public:
-	static std::vector<int> Neighbors(int cell_id);
+		struct Vertex {
+			int id_;
+			int edge_num_;
+
+			struct Edge {
+				int id_;
+				int length_;
+				int to_vertex_pos_;
+				int to_cell_;
+			} edges_[kMaxEdgesPerVertex];
+		} vertex_[kMaxVerticesPerCell];
+	};
 
 	static Cell grid_[kCellNum];
 
+	static std::vector<int> Neighbors(int cell_id);
 	static void Initialize();
-
 };
